@@ -16,6 +16,28 @@ class LaneStore {
             lanes: lanes.concat(lane)
         })
     }
+
+    addToLane({laneId, noteId}) {
+        const lanes = this.lanes.map(lane => {
+            if (lane.id === laneId) {
+                if (!lane.notes.includes(noteId)) {
+                    lane.notes.push(noteId);
+                }
+            }
+            return lane;
+        })
+        this.setState({lanes})
+    }
+
+    removeFromLane({laneId, noteId}) {
+        const lanes = this.lanes.map(lane => {
+            if (lane.id === laneId) {
+                lane.notes = lane.notes.filter(note => note !== noteId)
+            }
+            return lane
+        })
+        this.setState({lanes})
+    }
 }
 
 export default alt.createStore(LaneStore, 'LaneStore')

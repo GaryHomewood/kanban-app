@@ -8,11 +8,11 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div className='ui text container'>
+            <div className='ui container'>
                 <button
                     className='ui blue button'
-                    onClick={this.addNote}>
-                    <i className='add icon'/> Add
+                    onClick={this.addLane}>
+                    <i className='add icon'/> Add a lane
                 </button>
                 <AltContainer
                     stores={[LaneStore]}
@@ -25,18 +25,7 @@ export default class App extends React.Component {
         )
     }
 
-    addNote = () => {
-        NoteActions.create({task: 'new task'})
-    }
-
-    editNote = (id, task) => {
-        if (!task.trim()) {
-            return
-        }
-        NoteActions.update({id, task})
-    }
-
-    deleteNote = (id) => {
-        NoteActions.delete(id)
+    addLane() {
+        LaneActions.create({name: 'Lane'})
     }
 }
