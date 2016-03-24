@@ -14,6 +14,7 @@ body
     padding: 0
     li
         margin: 1rem 0
+        button
 
 .note
     span
@@ -28,8 +29,9 @@ body
             cursor: pointer
     button
         position: relative
-        top: -4px
         width: 38px
+        top: 6px
+        float: right
 
 h1
     font-weight: 400
@@ -42,4 +44,22 @@ h1
     margin-right: 20px
     padding: 16px
     border: 1px solid #eee
-    width: 16rem
+    width: 20rem
+
+.lane-header
+    h2
+        float: left
+    button
+        float: right
+
+.clearfix
+    *zoom: 1
+    &:before,
+    &:after
+        display: table
+        content: ""
+        // Fixes Opera/contenteditable bug:
+        // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+        line-height: 0
+    &:after
+        clear: both

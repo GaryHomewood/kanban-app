@@ -6,7 +6,7 @@ export default ({notes, onValueClick, onEdit, onDelete}) => {
     return (
         <ul className='notes'>
             {notes.map(note =>
-                <li key={note.id}>
+                <li key={note.id} className="note">
                     <Editable
                         editing={note.editing}
                         value={note.task}

@@ -12,23 +12,25 @@ export default class Lane extends React.Component {
 
         return (
             <div {...props}>
-                <div className="lane-header">
+                <div className="lane-header clearfix">
                     <h2 onClick={this.activateLaneEdit}>
                         <Editable
                             editing={lane.editing}
                             value={lane.name}
                             onEdit={this.editLane}/>
-                        <button
-                            className="ui mini button"
-                            onClick={this.deleteLane}>
-                            <i className="delete icon"/>
-                        </button>
                     </h2>
-
                     <button
-                        className="ui small button"
-                        onClick={this.addNote}>+ Add a task</button>
+                        className="ui mini button"
+                        onClick={this.deleteLane}>
+                        <i className="delete icon"/>
+                    </button>
+
                 </div>
+
+                <button
+                    className="ui small button"
+                    onClick={this.addNote}>+ Add a task</button>
+
 
                 <AltContainer
                     stores={[NoteStore]}
