@@ -1,3 +1,3 @@
 import alt from '../libs/alt'
 
-export default alt.generateActions('create', 'addToLane', 'removeFromLane')
+export default alt.generateActions('create', 'update', 'delete', 'addToLane', 'removeFromLane')
