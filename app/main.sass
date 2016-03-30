@@ -4,6 +4,7 @@ $bg: #fff
 body
     font: 100% $font-stack
     background-color: $bg
+    padding-top: 40px
 
 .ui.text.container
     margin: 5rem 0
@@ -13,13 +14,14 @@ body
     padding: 0
     li
         margin: 1rem 0
+        button
 
 .note
     span
         display: inline-block
-        width: 20rem
+        width: 10rem
         height: 3rem
-        padding: 10px 17px
+        padding: 10px 16px
         margin-right: 5px
         &:hover
             background-color: #f9f9f9
@@ -27,8 +29,37 @@ body
             cursor: pointer
     button
         position: relative
-        top: -4px
         width: 38px
+        top: 6px
+        float: right
 
 h1
     font-weight: 400
+
+.lanes
+    margin-top: 40px
+
+.lane
+    float: left
+    margin-right: 20px
+    padding: 16px
+    border: 1px solid #eee
+    width: 20rem
+
+.lane-header
+    h2
+        float: left
+    button
+        float: right
+
+.clearfix
+    *zoom: 1
+    &:before,
+    &:after
+        display: table
+        content: ""
+        // Fixes Opera/contenteditable bug:
+        // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+        line-height: 0
+    &:after
+        clear: both
