@@ -13,35 +13,33 @@ export default class Lane extends React.Component {
         return (
             <div {...props}>
                 <div className="lane-header clearfix">
-                    <h2 onClick={this.activateLaneEdit}>
+                    <div className="lane-name" onClick={this.activateLaneEdit}>
                         <Editable
                             editing={lane.editing}
                             value={lane.name}
                             onEdit={this.editLane}/>
-                    </h2>
+                    </div>
                     <button
-                        className="ui mini button"
+                        className="ui mini delete button"
                         onClick={this.deleteLane}>
                         <i className="delete icon"/>
                     </button>
-
                 </div>
-
-                <button
-                    className="ui small button"
-                    onClick={this.addNote}>+ Add a task</button>
-
-
-                <AltContainer
-                    stores={[NoteStore]}
-                    inject={{
-                        notes: () => NoteStore.getLaneNotes(lane.notes)
-                    }}>
-                    <Notes
-                        onValueClick={this.activateNoteEdit}
-                        onEdit={this.editNote}
-                        onDelete={this.deleteNote} />
-                </AltContainer>
+                <div className="lane-items clearfix">
+                    <AltContainer
+                        stores={[NoteStore]}
+                        inject={{
+                            notes: () => NoteStore.getLaneNotes(lane.notes)
+                        }}>
+                        <Notes
+                            onValueClick={this.activateNoteEdit}
+                            onEdit={this.editNote}
+                            onDelete={this.deleteNote} />
+                    </AltContainer>
+                    <button
+                        className="ui tiny button"
+                        onClick={this.addNote}>+ Add a task</button>
+                </div>
             </div>
         )
     }

@@ -26,7 +26,7 @@ const common = {
         loaders: [
             // Sass stylesheets
             {
-                test: /\.sass$/,
+                test: /\.scss$/,
                 loaders: ["style", "css", "sass"],
                 include: PATHS.app
             },

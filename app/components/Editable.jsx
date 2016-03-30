@@ -45,7 +45,7 @@ export default class Editable extends React.Component {
     renderDelete = () => {
         return (
             <button
-                className='ui mini button'
+                className='ui mini delete button'
                 onClick={this.props.onDelete}>
                 <i className='delete icon'/>
             </button>

@@ -1,5 +1,4 @@
 import React from 'react'
-import Note from './Note.jsx'
 import Editable from './Editable.jsx'
 
 export default ({notes, onValueClick, onEdit, onDelete}) => {

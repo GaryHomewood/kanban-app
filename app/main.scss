@@ -1,0 +1,82 @@
+@import '_card';
+
+body {
+    background-color: #f9f9f9;
+}
+
+.ui.container {
+    padding-top: 2rem;
+    .add-lane {
+        margin-bottom: 2rem;
+    }
+}
+
+.lane {
+    background-color: #fff;
+    @include card(1);
+    margin: 16px 0;
+    border-radius: 4px;
+    max-width: 27rem;
+}
+
+.lane-header {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px;
+    .lane-name {
+        float: left;
+    }
+    button {
+        float: right;
+    }
+}
+
+.lane-items {
+    padding: 16px;
+}
+
+.notes {
+    list-style-type: none;
+    padding: 0;
+    li {
+        margin: 1rem 0;
+    }
+}
+
+.note {
+    span {
+        display: inline-block;
+        height: 3rem;
+        padding: 10px 0;
+        margin-right: 5px;
+        &:hover {
+            background-color: #f9f9f9;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+    }
+    button {
+        float: right;
+        position: relative;
+        top: 6px;
+    }
+}
+
+.delete.button {
+    width: 35px;
+}
+
+.clearfix {
+    *zoom: 1;
+
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+        line-height: 0;
+    }
+
+    &:after {
+        clear: both;
+    }
+}

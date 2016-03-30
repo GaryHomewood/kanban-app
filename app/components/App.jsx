@@ -10,7 +10,7 @@ export default class App extends React.Component {
         return (
             <div className='ui container'>
                 <button
-                    className='ui blue button'
+                    className='ui blue add-lane button'
                     onClick={this.addLane}>
                     <i className='add icon'/> Add a lane
                 </button>
