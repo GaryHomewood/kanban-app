@@ -8,6 +8,6 @@ import alt from './libs/alt'
 import storage from './libs/storage'
 import persist from './libs/persist'
 
-persist(alt, storage, 'NoteStore')
+persist(alt, storage, 'KanbanApp')
 
 ReactDOM.render(<App />, document.getElementById('app'));
