@@ -18,7 +18,6 @@ const noteTarget = {
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id
         const targetId = targetProps.id
-
         if (sourceId !== targetId) {
             targetProps.onMove({sourceId, targetId})
         }
@@ -48,7 +47,7 @@ export default class Note extends React.Component {
 
         return dragSource(connectDropTarget(
             <li style={{
-                    opacity: isDragging ? 0 : 1
+                    opacity: isDragging ? 0.4 : 1
                   }} {...props}>{props.children}</li>
           ))
     }

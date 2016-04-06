@@ -6,5 +6,6 @@ export default alt.generateActions(
     'delete',
     'addToLane',
     'removeFromLane',
-    'move'
+    'moveNote',
+    'moveLane'
 )

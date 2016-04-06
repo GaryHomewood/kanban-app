@@ -5,37 +5,81 @@ import NoteActions from '../actions/NoteActions';
 import LaneActions from '../actions/LaneActions'
 import NoteStore from '../stores/NoteStore';
 import Editable from './Editable.jsx'
-
-import {DropTarget} from 'react-dnd'
+import {DragSource, DropTarget} from 'react-dnd'
 import ItemTypes from '../constants/itemTypes'
 
-const noteTarget = {
+const spec = {
     hover(targetProps, monitor) {
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id
         const targetId = targetProps.id
-        // droping on an empty lane
-        if (!targetProps.lane.notes.length) {
-            console.log(`source: ${sourceId}, target: ${targetId}`);
+
+        if (monitor.getItemType() === ItemTypes.NOTE) {
             LaneActions.addToLane({
                 laneId: targetProps.lane.id,
                 noteId: sourceId
+            })
+        } else if (monitor.getItemType() === ItemTypes.LANE) {
+            LaneActions.moveLane({
+                    sourceId: sourceId,
+                    targetId: targetProps.lane.id
             })
         }
     }
 }
 
-@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+const laneSource = {
+    beginDrag(props) {
+        return {
+            id: props.lane.id
+        }
+    },
+    isDragging(props, monitor) {
+        return props.id === monitor.getItem().id;
+    }
+}
+
+
+const laneTarget = {
+    hover(targetProps, monitor) {
+        const sourceProps = monitor.getItem();
+        const sourceId = sourceProps.id
+        const targetId = targetProps.lane.id
+        if (sourceId !== targetId) {
+            // reordering lanes
+            LaneActions.moveLane({
+                    sourceId: sourceId,
+                    targetId: targetId
+            })
+        }
+    }
+}
+
+@DragSource(ItemTypes.LANE, laneSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+}))
+
+@DropTarget(
+        [ItemTypes.NOTE, ItemTypes.LANE],
+        spec, (connect) => ({
     connectDropTarget: connect.dropTarget()
 }))
 
 export default class Lane extends React.Component {
     render() {
-        const {connectDropTarget, lane, ...props} = this.props;
+        const {
+            connectDropTarget,
+            connectDragSource,
+            isDragging,
+            lane, ...props} = this.props
 
-        return connectDropTarget(
-            <div {...props}>
-                <div className="lane-header clearfix">
+        return connectDragSource(connectDropTarget(
+            <div style={{
+                    opacity: isDragging ? 0.4 : 1
+                }} {...props}>
+                <div className="lane-header">
+                    <div className="dragHandle"></div>
                     <div className="lane-name" onClick={this.activateLaneEdit}>
                         <Editable
                             editing={lane.editing}
@@ -64,7 +108,7 @@ export default class Lane extends React.Component {
                         onClick={this.addNote}>+ Add a task</button>
                 </div>
             </div>
-        )
+        ))
     }
 
     // -------------------------------------------------------------------------

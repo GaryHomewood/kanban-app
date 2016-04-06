@@ -1,5 +1,7 @@
 @import '_card';
 
+$lightgray: #f0f0f0;
+
 body {
     background-color: rgb(236, 239, 241);;
 }
@@ -16,20 +18,48 @@ body {
     @include card(1);
     margin: 16px 0;
     border-radius: 4px;
-    max-width: 27rem;
+    width: 20rem;
     float: left;
     margin-right: 1em;
 }
 
 .lane-header {
-    background-color: #f0f0f0;
+    background-color: $lightgray;
     border-bottom: 1px solid #e8e8e8;
     padding: 16px;
+    height: 55px;
+
     .lane-name {
         float: left;
+
     }
     button {
         float: right;
+    }
+}
+
+.dragHandle {
+    width: 20px;
+    height: 50px;
+    float: left;
+    position: relative;
+    top: -12px;
+    &:hover,
+    &:active {
+        cursor: move;
+    }
+    &:before {
+        content: '.';
+        font-size: 20px;
+        line-height: 20px;
+        color: darken($lightgray, 20%);
+        text-shadow: 0 5px darken($lightgray, 20%),
+                 0 10px darken($lightgray, 20%),
+                 0 15px darken($lightgray, 20%),
+                 5px 0 darken($lightgray, 20%),
+                 5px 5px darken($lightgray, 20%),
+                 5px 10px darken($lightgray, 20%),
+                 5px 15px darken($lightgray, 20%);
     }
 }
 
@@ -46,18 +76,28 @@ body {
 }
 
 .note {
+    .dragHandle {
+        visibility: hidden;
+        position: relative;
+        top: -4px;
+    }
+    &:hover {
+        .dragHandle {
+            visibility: visible;
+        }
+    }
     span {
+        float: left;
         display: inline-block;
         height: 3rem;
         padding: 10px 0;
-        margin-right: 5px;
         &:hover {
             background-color: #f9f9f9;
             transition: 0.4s;
             cursor: pointer;
         }
     }
-    button {
+    .delete.button {
         float: right;
         position: relative;
         top: 6px;
