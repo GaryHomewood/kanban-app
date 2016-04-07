@@ -2,7 +2,7 @@ import React from 'react'
 import {DragSource, DropTarget} from 'react-dnd'
 import ItemTypes from '../constants/itemTypes'
 
-const noteSource = {
+const sourceSpec = {
     beginDrag(props) {
         return {
             id: props.id
@@ -13,7 +13,7 @@ const noteSource = {
     }
 }
 
-const noteTarget = {
+const targetSpec = {
     hover(targetProps, monitor) {
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id
@@ -24,12 +24,12 @@ const noteTarget = {
     }
 }
 
-@DragSource(ItemTypes.NOTE, noteSource, (connect, monitor) => ({
+@DragSource(ItemTypes.NOTE, sourceSpec, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
 
-@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+@DropTarget(ItemTypes.NOTE, targetSpec, (connect) => ({
     connectDropTarget: connect.dropTarget()
 }))
 

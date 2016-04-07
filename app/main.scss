@@ -3,32 +3,38 @@
 $lightgray: #f0f0f0;
 
 body {
-    background-color: rgb(236, 239, 241);;
+    background-color: rgb(236, 239, 241);
+    overflow-x: auto;
+
 }
 
-.ui.container {
-    padding-top: 2rem;
+main {
+    padding: 2rem;
     .add-lane {
         margin-bottom: 2rem;
     }
 }
 
+.lanes {
+    white-space: nowrap;
+}
+
 .lane {
+    display: inline-block;
     background-color: #fff;
-    @include card(1);
     margin: 16px 0;
     border-radius: 4px;
-    width: 20rem;
-    float: left;
+    width: 270px;
     margin-right: 1em;
+    vertical-align: top;
+    @include card(1);
 }
 
 .lane-header {
     background-color: $lightgray;
     border-bottom: 1px solid #e8e8e8;
-    padding: 16px;
+    padding: 8px 8px 16px 16px;
     height: 55px;
-
     .lane-name {
         float: left;
 
@@ -39,7 +45,7 @@ body {
 }
 
 .dragHandle {
-    width: 20px;
+    width: 14px;
     height: 50px;
     float: left;
     position: relative;
@@ -69,56 +75,62 @@ body {
 
 .notes {
     list-style-type: none;
+    margin: 0;
     padding: 0;
-    li {
-        margin: 1rem 0;
+}
+
+.dragHandle {
+    position: relative;
+    top: -4px;
+}
+
+.lane-name {
+    width: 222px;
+    &:hover {
+        .delete.button {
+            visibility: visible;
+        }
     }
+}
+
+.value {
+    float: left;
+    display: inline-block;
+    position: relative;
+    top: 9px;
+    left: 15px;
+}
+
+.delete.button {
+    float: right;
+    margin-left: 20px;
+    position: relative;
+    top: 6px;
+    visibility: hidden;
 }
 
 .note {
     .dragHandle {
         visibility: hidden;
-        position: relative;
-        top: -4px;
     }
     &:hover {
         .dragHandle {
             visibility: visible;
         }
-    }
-    span {
-        float: left;
-        display: inline-block;
-        height: 3rem;
-        padding: 10px 0;
-        &:hover {
-            background-color: #f9f9f9;
-            transition: 0.4s;
-            cursor: pointer;
+        .delete.button {
+            visibility: visible;
         }
     }
-    .delete.button {
-        float: right;
-        position: relative;
-        top: 6px;
-    }
-}
-
-.delete.button {
-    width: 35px;
-    margin-left: 20px;
 }
 
 .clearfix {
     *zoom: 1;
-
     &:before,
     &:after {
         display: table;
         content: "";
         line-height: 0;
     }
-
     &:after {
         clear: both;
     }

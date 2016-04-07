@@ -10,11 +10,11 @@ import {DragDropContext} from 'react-dnd'
 export default class App extends React.Component {
     render() {
         return (
-            <div className='ui container'>
+            <main>
                 <button
-                    className='ui blue add-lane button'
+                    className='ui blue add-lane icon button'
                     onClick={this.addLane}>
-                    <i className='add icon'/> Add a lane
+                    <i className='add icon'/> Add a list
                 </button>
                 <AltContainer
                     stores={[LaneStore]}
@@ -23,7 +23,7 @@ export default class App extends React.Component {
                     }}>
                     <Lanes />
                 </AltContainer>
-            </div>
+            </main>
         )
     }
 

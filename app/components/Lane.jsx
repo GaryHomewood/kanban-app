@@ -8,27 +8,7 @@ import Editable from './Editable.jsx'
 import {DragSource, DropTarget} from 'react-dnd'
 import ItemTypes from '../constants/itemTypes'
 
-const spec = {
-    hover(targetProps, monitor) {
-        const sourceProps = monitor.getItem();
-        const sourceId = sourceProps.id
-        const targetId = targetProps.id
-
-        if (monitor.getItemType() === ItemTypes.NOTE) {
-            LaneActions.addToLane({
-                laneId: targetProps.lane.id,
-                noteId: sourceId
-            })
-        } else if (monitor.getItemType() === ItemTypes.LANE) {
-            LaneActions.moveLane({
-                    sourceId: sourceId,
-                    targetId: targetProps.lane.id
-            })
-        }
-    }
-}
-
-const laneSource = {
+const sourceSpec = {
     beginDrag(props) {
         return {
             id: props.lane.id
@@ -39,30 +19,38 @@ const laneSource = {
     }
 }
 
-
-const laneTarget = {
+const targetSpec = {
     hover(targetProps, monitor) {
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id
-        const targetId = targetProps.lane.id
-        if (sourceId !== targetId) {
-            // reordering lanes
+        const targetId = targetProps.id
+
+        if (monitor.getItemType() === ItemTypes.LANE) {
             LaneActions.moveLane({
                     sourceId: sourceId,
-                    targetId: targetId
+                    targetId: targetProps.lane.id
+            })
+        }
+    },
+    drop(targetProps, monitor) {
+        // note being dropped on an empty lane
+        if ((monitor.getItemType() === ItemTypes.NOTE) && (!targetProps.lane.notes.length)){
+            const sourceProps = monitor.getItem()
+
+            LaneActions.addToLane({
+                laneId: targetProps.lane.id,
+                noteId: sourceProps.id
             })
         }
     }
 }
 
-@DragSource(ItemTypes.LANE, laneSource, (connect, monitor) => ({
+@DragSource(ItemTypes.LANE, sourceSpec, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
 
-@DropTarget(
-        [ItemTypes.NOTE, ItemTypes.LANE],
-        spec, (connect) => ({
+@DropTarget([ItemTypes.NOTE, ItemTypes.LANE], targetSpec, (connect) => ({
     connectDropTarget: connect.dropTarget()
 }))
 
@@ -72,7 +60,8 @@ export default class Lane extends React.Component {
             connectDropTarget,
             connectDragSource,
             isDragging,
-            lane, ...props} = this.props
+            lane,
+            editing, ...props} = this.props
 
         return connectDragSource(connectDropTarget(
             <div style={{
@@ -84,13 +73,10 @@ export default class Lane extends React.Component {
                         <Editable
                             editing={lane.editing}
                             value={lane.name}
-                            onEdit={this.editLane}/>
+                            onValueClick={this.activateLaneEdit}
+                            onEdit={this.editLane}
+                            onDelete={this.deleteLane}/>
                     </div>
-                    <button
-                        className="ui mini delete button"
-                        onClick={this.deleteLane}>
-                        <i className="delete icon"/>
-                    </button>
                 </div>
                 <div className="lane-items clearfix">
                     <AltContainer
@@ -104,8 +90,8 @@ export default class Lane extends React.Component {
                             onDelete={this.deleteNote} />
                     </AltContainer>
                     <button
-                        className="ui tiny button"
-                        onClick={this.addNote}>+ Add a task</button>
+                        className="ui tiny icon button"
+                        onClick={this.addNote}>+ Add an item</button>
                 </div>
             </div>
         ))
@@ -119,7 +105,6 @@ export default class Lane extends React.Component {
     }
 
     addNote = (e) => {
-        console.log('add note');
         const laneId = this.props.lane.id
         const note = NoteActions.create({editing: true});
         LaneActions.addToLane({
@@ -150,6 +135,7 @@ export default class Lane extends React.Component {
     // lane
 
     activateLaneEdit = (name) => {
+        console.log('LANE EDIT');
         const laneId = this.props.lane.id
         LaneActions.update({id: laneId, editing: true});
     }

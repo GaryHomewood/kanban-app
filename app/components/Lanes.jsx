@@ -10,6 +10,7 @@ export default ({lanes}) => {
                     className="lane"
                     key={lane.id}
                     lane={lane}
+                    editing={lane.editing}
                     onMove={LaneActions.moveLane}
                     />
             )}
