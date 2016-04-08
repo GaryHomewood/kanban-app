@@ -1,11 +1,67 @@
-@import '_card';
+@import 'card';
+@import 'button';
+@import 'input';
+@import 'icon';
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin');
 
 $lightgray: #f0f0f0;
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
 body {
+  height: 100%;
+}
+
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+body {
+    margin: 0;
     background-color: rgb(236, 239, 241);
     overflow-x: auto;
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.4285em;
+    color: rgba(0, 0, 0, 0.87);
+    font-smoothing: antialiased;
+}
 
+textarea::-webkit-selection,
+input::-webkit-selection {
+    background-color: rgba(100, 100, 100, 0.4);
+    color: rgba(0, 0, 0, 0.87);
+}
+
+textarea::-moz-selection,
+input::-moz-selection {
+    background-color: rgba(100, 100, 100, 0.4);
+    color: rgba(0, 0, 0, 0.87);
+}
+
+textarea::selection,
+input::selection {
+    background-color: rgba(100, 100, 100, 0.4);
+    color: rgba(0, 0, 0, 0.87);
 }
 
 main {
